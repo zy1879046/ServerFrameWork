@@ -32,6 +32,12 @@
 #define LOG_ROOT_WARN() LOG_WARN(LOG_ROOT())
 #define LOG_ROOT_ERROR() LOG_ERROR(LOG_ROOT())
 #define LOG_ROOT_FATAL() LOG_FATAL(LOG_ROOT())
+
+#define LOG_SYSTEM_DEBUG() LOG_DEBUG(LOG_NAME("system"))
+#define LOG_SYSTEM_INFO() LOG_INFO(LOG_NAME("system"))
+#define LOG_SYSTEM_WARN() LOG_WARN(LOG_NAME("system"))
+#define LOG_SYSTEM_ERROR() LOG_ERROR(LOG_NAME("system"))
+#define LOG_SYSTEM_FATAL() LOG_FATAL(LOG_NAME("system"))
 namespace sylar
 {
     class LogEvent;//该类用来声明事件，该事件中存放日志信息，后续会被输入到日志器中

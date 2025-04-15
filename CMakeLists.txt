@@ -37,6 +37,9 @@ set(LIB_SRC
         sylar/Thread.h
         sylar/util.h
         sylar/util.cpp
+        sylar/macro.h
+        sylar/fiber.cpp
+        sylar/fiber.h
 )
 
 set(LIB_LIB
@@ -58,11 +61,18 @@ target_link_libraries(test_log ${LIB_LIB})
 
 add_executable(test_config test/test_config.cpp)
 add_dependencies(test_config sylar)
+force_redefine_file_macro_for_sources(test_config)
 target_link_libraries(test_config ${LIB_LIB})
 
 add_executable(test_thread test/test_thread.cpp)
 add_dependencies(test_thread sylar)
+force_redefine_file_macro_for_sources(test_thread) #__FILE__ 重定义该宏为相对路径
 target_link_libraries(test_thread ${LIB_LIB})
+
+add_executable(test_fiber test/test_fiber.cpp)
+add_dependencies(test_fiber sylar)
+force_redefine_file_macro_for_sources(test_fiber) #__FILE__ 重定义该宏为相对路径
+target_link_libraries(test_fiber ${LIB_LIB})
 
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)

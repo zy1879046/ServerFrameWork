@@ -36,7 +36,10 @@ namespace sylar
 
     void Thread::set_name(const std::string name)
     {
-        m_name = name;
+        if (t_thread)
+        {
+            t_thread->m_name = name;
+        }
         t_name = name;
     }
 

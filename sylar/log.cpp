@@ -972,9 +972,10 @@ struct LogInit
 {
     constexpr LogInit()
     {
-        LOG_ROOT_INFO() << "log config has changed";
+
         g_log_defines->add_listener([](const std::set<LoggerDefine>& old_value,const  std::set<LoggerDefine>& new_value)
         {
+            LOG_ROOT_INFO() << "log config has changed";
             // 将old里面没有的 new log 加入到LogMGr中,有的但变化了则改变
             for (auto& ld : new_value)
             {

@@ -38,7 +38,7 @@ public:
     ~Thread()override;
     void join();
     const std::string get_name();
-    void set_name(const std::string name);
+    static void set_name(const std::string name);
     const pid_t get_pid();
     static Thread* GetThis();
 private:

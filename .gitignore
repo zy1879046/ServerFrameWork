@@ -1,0 +1,11 @@
+# 忽略 bin 目录
+bin/
+
+# 忽略 build 目录
+build/
+
+# 忽略 lib 目录
+lib/
+
+# 忽略 log 目录
+log/

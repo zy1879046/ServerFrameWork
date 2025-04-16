@@ -10,6 +10,10 @@
 namespace sylar{
     pid_t get_thread_id();
 
+    uint64_t get_cur_fiber_id();
+
+
+
     void Backtrace(std::vector<std::string>& bt,int size,int skip = 1);
 
     std::string BacktraceToString(int size,int skip = 2, const std::string& prefix = " ");

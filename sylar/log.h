@@ -15,9 +15,10 @@
 #include <map>
 #include "Singleton.h"
 #include "mutex.h"
+#include "util.h"
 #define LOG_LEVEL(logger, level) \
     if(logger->get_level() <= level) \
-        sylar::LogEventWrap(sylar::LogEvent::ptr(new sylar::LogEvent(logger, level, __FILE__, __LINE__, 0, 0, time(0)))).get_ss()
+        sylar::LogEventWrap(sylar::LogEvent::ptr(new sylar::LogEvent(logger, level, __FILE__, __LINE__, sylar::get_thread_id(), sylar::get_cur_fiber_id(), time(0)))).get_ss()
 #define LOG_DEBUG(logger) LOG_LEVEL(logger, sylar::LogLevel::DEBUG)
 #define LOG_INFO(logger) LOG_LEVEL(logger, sylar::LogLevel::INFO)
 #define LOG_WARN(logger) LOG_LEVEL(logger, sylar::LogLevel::WARN)

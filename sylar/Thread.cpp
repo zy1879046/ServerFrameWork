@@ -43,6 +43,11 @@ namespace sylar
         t_name = name;
     }
 
+    const std::string Thread::get_thread_name()
+    {
+        return t_name;
+    }
+
     const pid_t Thread::get_pid()
     {
         return m_pid;

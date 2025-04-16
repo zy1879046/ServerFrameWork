@@ -6,6 +6,7 @@
 #include <sys/syscall.h>
 #include <execinfo.h>
 #include "log.h"
+#include "fiber.h"
 namespace sylar
 {
     static thread_local pid_t t_id = 0;
@@ -17,6 +18,11 @@ namespace sylar
         return t_id;
     }
 
+    uint64_t get_cur_fiber_id()
+    {
+        // LOG_ROOT_DEBUG() << "get_cur_fiber_id";
+        return Fiber::get_cur_fiber_id();
+    }
     void Backtrace(std::vector<std::string>& bt,int size,int skip){
         void** array = (void**)malloc(sizeof(void*) * size);
         //通过该函数获取调用栈，并将调用栈信息存在array中，返回栈中的大小

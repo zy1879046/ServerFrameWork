@@ -20,7 +20,7 @@ public:
     using ThreadFunc = std::function<void()>;
     using ptr = std::shared_ptr<Thread>;
     template<typename Fun,typename... Args>
-    explicit Thread(Fun&& func,Args&&... args, const std::string name = "")
+    explicit Thread(Fun&& func,Args&&... args, const std::string& name = "")
         :m_name(name),m_is_joinable(true)
     {
         if (name.empty())
@@ -39,6 +39,7 @@ public:
     void join();
     const std::string get_name();
     static void set_name(const std::string name);
+    static const std::string get_thread_name();
     const pid_t get_pid();
     static Thread* GetThis();
 private:

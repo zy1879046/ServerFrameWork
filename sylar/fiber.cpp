@@ -45,7 +45,7 @@ namespace sylar
         }
         m_ctx.uc_stack.ss_sp = m_stack;
         m_ctx.uc_stack.ss_size = m_stacksize;
-        m_ctx.uc_link = &t_main_fiber->m_ctx;
+        m_ctx.uc_link = nullptr;
         makecontext(&m_ctx, (void(*)())MianFun, 0);
         LOG_SYSTEM_INFO() << "fiber id: " << m_id;
     }
@@ -75,6 +75,7 @@ namespace sylar
     void Fiber::swap_in()
     {
         //设置当前执行协程
+        // LOG_ROOT_INFO() << "Switching to Fiber ID: " << m_id;
         SetCurFiber(this);
         SYLAR_ASSERT(m_state != EXEC);
         m_state = EXEC;
@@ -105,6 +106,11 @@ namespace sylar
         return m_state;
     }
 
+    void Fiber::set_state(State state)
+    {
+        m_state = state;
+    }
+
     void Fiber::reset(std::function<void()> func)
     {
         //必须有栈空间
@@ -118,7 +124,7 @@ namespace sylar
         }
         m_ctx.uc_stack.ss_sp = m_stack;
         m_ctx.uc_stack.ss_size = m_stacksize;
-        m_ctx.uc_link = &t_main_fiber->m_ctx;;
+        m_ctx.uc_link = nullptr;;
         makecontext(&m_ctx, (void(*)())MianFun, 0);
         m_state = INIT;
     }
@@ -159,8 +165,8 @@ namespace sylar
 
     uint64_t Fiber::get_cur_fiber_id()
     {
-        auto fiber = GetCurFiber();
-        return fiber->m_id;
+        if (t_cur_fiber)return t_cur_fiber->m_id;
+        return 0;
     }
 
     Fiber::Fiber()
@@ -175,7 +181,6 @@ namespace sylar
         {
             SYLAR_ASSERT2(false,"getcontext");
         }
-
     }
 
     void Fiber::MianFun()

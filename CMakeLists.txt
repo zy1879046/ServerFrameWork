@@ -40,6 +40,8 @@ set(LIB_SRC
         sylar/macro.h
         sylar/fiber.cpp
         sylar/fiber.h
+        sylar/schedule.cpp
+        sylar/schedule.h
 )
 
 set(LIB_LIB
@@ -73,6 +75,11 @@ add_executable(test_fiber test/test_fiber.cpp)
 add_dependencies(test_fiber sylar)
 force_redefine_file_macro_for_sources(test_fiber) #__FILE__ 重定义该宏为相对路径
 target_link_libraries(test_fiber ${LIB_LIB})
+
+add_executable(test_schedule test/test_schedule.cpp)
+add_dependencies(test_schedule sylar)
+force_redefine_file_macro_for_sources(test_schedule) #__FILE__ 重定义该宏为相对路径
+target_link_libraries(test_schedule ${LIB_LIB})
 
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)

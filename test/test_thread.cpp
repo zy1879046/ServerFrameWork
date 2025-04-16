@@ -61,7 +61,7 @@ void test_condition() {
             ++i;
             cond.notify();
         }
-    });
+    }, "thread1");
 
     sylar::Thread t2([&i, &cond, &s_mutex, &running] {
         while (running) {
@@ -71,7 +71,7 @@ void test_condition() {
             ++i;
             cond.notify();
         }
-    });
+    },"thread2");
 
     // 模拟运行一段时间后退出
     std::this_thread::sleep_for(std::chrono::seconds(10));

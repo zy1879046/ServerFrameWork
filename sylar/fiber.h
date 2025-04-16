@@ -74,6 +74,7 @@ public:
     uint64_t get_id();
     //获取协程状态
     State get_state();
+    void set_state(State state);
     //重设回调函数
     void reset(std::function<void()> func);
 public:

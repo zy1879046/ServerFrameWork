@@ -16,6 +16,7 @@
 #include <filesystem>
 #include "config.h"
 #include "mutex.h"
+#include "Thread.h"
 namespace sylar
 {
 std::string LogLevel::ToString(Level level)
@@ -60,7 +61,7 @@ LogLevel::Level LogLevel::FromString(const std::string& str)
 LogEvent::LogEvent(std::shared_ptr<Logger> logger,LogLevel::Level level, std::string  fileName,
                        uint32_t line, uint32_t threadId, uint32_t fiberId, uint64_t time)
     :m_logger(std::move(logger)),m_fileName(std::move(fileName)),m_time(time),
-    m_threadId(threadId),m_fiberId(fiberId),m_line(line),m_level(level)
+    m_threadId(threadId),m_fiberId(fiberId),m_line(line),m_level(level),m_threadName(Thread::get_thread_name())
 {
 }
 
@@ -308,7 +309,7 @@ private:
  * %T: Tab
  * %n: 换行
  * %d: 时间
- * %N: 线程名称
+ * %N: 线程名称ß
  */
 void LogFormatter::init()
 {

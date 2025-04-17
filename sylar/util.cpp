@@ -7,6 +7,7 @@
 #include <execinfo.h>
 #include "log.h"
 #include "fiber.h"
+#include <sys/time.h>
 namespace sylar
 {
     static thread_local pid_t t_id = 0;
@@ -47,5 +48,19 @@ namespace sylar
             ss << prefix << bt[i] << std::endl;
         }
         return ss.str();
+    }
+
+    uint64_t get_cur_ms()
+    {
+        struct timeval tv;
+        gettimeofday(&tv, nullptr);
+        return tv.tv_sec * 1000 + tv.tv_usec / 1000;
+    }
+
+    uint64_t get_cur_us()
+    {
+        struct timeval tv;
+        gettimeofday(&tv, nullptr);
+        return tv.tv_sec * 1000 * 1000 + tv.tv_usec;
     }
 }

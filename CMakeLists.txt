@@ -42,6 +42,10 @@ set(LIB_SRC
         sylar/fiber.h
         sylar/schedule.cpp
         sylar/schedule.h
+        sylar/iomanager.h
+        sylar/iomanager.cpp
+        sylar/timer.h
+        sylar/timer.cpp
 )
 
 set(LIB_LIB
@@ -80,6 +84,11 @@ add_executable(test_schedule test/test_schedule.cpp)
 add_dependencies(test_schedule sylar)
 force_redefine_file_macro_for_sources(test_schedule) #__FILE__ 重定义该宏为相对路径
 target_link_libraries(test_schedule ${LIB_LIB})
+
+add_executable(test_iomanager test/test_iomanager.cpp)
+add_dependencies(test_iomanager sylar)
+force_redefine_file_macro_for_sources(test_iomanager) #__FILE__ 重定义该宏为相对路径
+target_link_libraries(test_iomanager ${LIB_LIB})
 
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)

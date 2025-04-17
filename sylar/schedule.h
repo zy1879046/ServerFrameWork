@@ -42,13 +42,13 @@ public:
         }
     }
     template<typename InputIterator>
-    void schedule(InputIterator&& begin,InputIterator&& end ,int thread)
+    void schedule(InputIterator&& begin,InputIterator&& end ,int thread = -1)
     {
         bool need_tickle = false;
         {
             LockGuard lock(m_mutex);
             while(begin != end){
-                need_tickle = scheduleNoLock(&*begin(),thread) || need_tickle;
+                need_tickle = scheduleNoLock(&(*begin),thread) || need_tickle;
                 ++begin;
             }
         }
@@ -81,7 +81,9 @@ private:
     {
         Task() : thread_id(-1){}
         Task(Fiber::ptr fb,int thread = -1):fiber(fb),thread_id(thread){}
+        Task(Fiber::ptr* fb,int thread = -1):thread_id(thread){fiber.swap(*fb);}
         Task(std::function<void()> func,int thread = -1) : cb(func),thread_id(thread){}
+        Task(std::function<void()>* func,int thread = -1) :thread_id(thread){cb.swap(*func);}
         template<typename Fun,typename... Args>
         Task(Fun&& func,Args... args,int thread = -1):cb(std::bind(func,std::forward<Args>(args)...)),thread_id(thread){}
         void reset()

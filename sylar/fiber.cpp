@@ -69,7 +69,7 @@ namespace sylar
                 SetCurFiber(nullptr);
             }
         }
-        LOG_ROOT_INFO() << "fiber id: " << m_id;
+        // LOG_ROOT_INFO() << "fiber id: " << m_id;
     }
 
     void Fiber::swap_in()

@@ -76,6 +76,7 @@ namespace sylar
         void on_timer_insert_at_front() override;
         void context_resize(size_t size);
         bool stopping(uint64_t& timeout);
+        void run() override;
 
     private:
         int m_epfd = 0;//epoll的文件描述符

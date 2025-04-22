@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 2.8)
 project(sylar)
 include (cmake/utils.cmake)
 set(CMAKE_VERBOSE_MAKEFILE ON)
-set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS}  -g -D_XOPEN_SOURCE -std=c++17 -Wall  -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined ")
+set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS}  -g -D_GNU_SOURCE -D_XOPEN_SOURCE -std=c++17 -Wall  -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined ")
 # 设置 C++ 标准为 C++11
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -46,6 +46,13 @@ set(LIB_SRC
         sylar/iomanager.cpp
         sylar/timer.h
         sylar/timer.cpp
+        sylar/hook.h
+        sylar/hook.cpp
+        sylar/fd_manager.h
+        sylar/fd_manager.cpp
+        sylar/address.h
+        sylar/address.cpp
+        sylar/myendian.h
 )
 
 set(LIB_LIB
@@ -89,6 +96,18 @@ add_executable(test_iomanager test/test_iomanager.cpp)
 add_dependencies(test_iomanager sylar)
 force_redefine_file_macro_for_sources(test_iomanager) #__FILE__ 重定义该宏为相对路径
 target_link_libraries(test_iomanager ${LIB_LIB})
+
+
+add_executable(test_hook test/test_hook.cpp)
+add_dependencies(test_hook sylar)
+force_redefine_file_macro_for_sources(test_hook) #__FILE__ 重定义该宏为相对路径
+target_link_libraries(test_hook ${LIB_LIB})
+
+add_executable(test_address test/test_address.cpp)
+add_dependencies(test_address sylar)
+force_redefine_file_macro_for_sources(test_address) #__FILE__ 重定义该宏为相对路径
+target_link_libraries(test_address ${LIB_LIB})
+
 
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)

@@ -4,7 +4,6 @@
 
 #ifndef SCHEDULE_H
 #define SCHEDULE_H
-#include <queue>
 #include <vector>
 #include "Thread.h"
 #include "fiber.h"

@@ -9,3 +9,5 @@ lib/
 
 # 忽略 log 目录
 log/
+
+wrong/

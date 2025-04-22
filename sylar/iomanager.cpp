@@ -14,6 +14,7 @@
 #include <fcntl.h>
 #include <algorithm>
 #include <cmath>
+#include "hook.h"
 namespace  sylar
 {
     IOManager::FdContext::EventContext& IOManager::FdContext::getContext(Event event)
@@ -410,5 +411,11 @@ namespace  sylar
     {
         timeout = get_next_timer();
         return timeout == ~0ull && m_pendingEventCount == 0 && Schedule::stopping();
+    }
+
+    void IOManager::run()
+    {
+        set_hook_enable(true);
+        Schedule::run();
     }
 }

@@ -53,6 +53,8 @@ set(LIB_SRC
         sylar/address.h
         sylar/address.cpp
         sylar/myendian.h
+        sylar/socket.h
+        sylar/socket.cpp
 )
 
 set(LIB_LIB
@@ -103,11 +105,16 @@ add_dependencies(test_hook sylar)
 force_redefine_file_macro_for_sources(test_hook) #__FILE__ 重定义该宏为相对路径
 target_link_libraries(test_hook ${LIB_LIB})
 
-add_executable(test_address test/test_address.cpp)
+add_executable(test_address test/test_address.cpp
+        )
 add_dependencies(test_address sylar)
 force_redefine_file_macro_for_sources(test_address) #__FILE__ 重定义该宏为相对路径
 target_link_libraries(test_address ${LIB_LIB})
 
+add_executable(test_socket test/test_socket.cpp)
+add_dependencies(test_socket sylar)
+force_redefine_file_macro_for_sources(test_socket) #__FILE__ 重定义该宏为相对路径
+target_link_libraries(test_socket ${LIB_LIB})
 
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)

@@ -47,16 +47,18 @@ void test_iface() {
 }
 
 void test_ipv4() {
-    //auto addr = sylar::IPAddress::Create("www.sylar.top");
+    // auto addr = sylar::IPAddress::create("www.sylar.top");
     auto addr = sylar::IPAddress::create("127.0.0.8");
+    auto ipv4 = sylar::Address::lookup_any("www.baidu.com", AF_INET);
     if(addr) {
         LOG_ROOT_INFO() << addr->to_string();
+        LOG_ROOT_INFO() << ipv4->to_string();
     }
 }
 
 int main(int argc, char** argv) {
     test_ipv4();
-    test_iface();
-    test();
+    // test_iface();
+    // test();
     return 0;
 }
